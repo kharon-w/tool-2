@@ -158,21 +158,23 @@
   }
 
   function renderTabs(){
-    var mains = root.querySelectorAll('.cdb2__tab');
-    for (var i = 0; i < mains.length; i++) {
-      var active = mains[i].getAttribute('data-main') === state.main;
-      mains[i].classList.toggle('is-active', active);
-    }
-
-    var secs = groups[state.main] || [];
-    var html = '<button type="button" class="cdb2__subtab' + (state.sub[state.main] === 'all' ? ' is-active' : '') + '" data-sub="all">все</button>';
-
-    for (var j = 0; j < secs.length; j++) {
-      html += '<button type="button" class="cdb2__subtab' + (state.sub[state.main] === secs[j].id ? ' is-active' : '') + '" data-sub="' + esc(secs[j].id) + '">' + esc(secs[j].title) + '</button>';
-    }
-
-    subtabs.innerHTML = html;
+  var mains = root.querySelectorAll('.cdb2__tab');
+  for (var i = 0; i < mains.length; i++) {
+    var active = mains[i].getAttribute('data-main') === state.main;
+    mains[i].classList.toggle('is-active', active);
   }
+
+  var secs = groups[state.main] || [];
+  var html = '';
+
+  for (var j = 0; j < secs.length; j++) {
+    html += '<button type="button" class="cdb2__subtab' + (state.sub[state.main] === secs[j].id ? ' is-active' : '') + '" data-sub="' + esc(secs[j].id) + '">' + esc(secs[j].title) + '</button>';
+  }
+
+  html += '<button type="button" class="cdb2__subtab' + (state.sub[state.main] === 'all' ? ' is-active' : '') + '" data-sub="all">все</button>';
+
+  subtabs.innerHTML = html;
+}
 
   function renderPanel(){
     var secs = getSections();

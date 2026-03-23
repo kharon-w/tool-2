@@ -1,17 +1,33 @@
 #cdBankNative.cdb2,
-#cdBankNative.cdb2 * { box-sizing:border-box !important; }
+#cdBankNative.cdb2 *{
+  box-sizing:border-box !important;
+}
 
 #cdBankNative.cdb2{
-  --cdb-bg: var(--jbCard);
-  --cdb-ink: var(--jbInk);
-  --cdb-accent: var(--jbAccent);
-  --cdb-line: var(--jbLine);
-  --cdb-soft: var(--jbSoft);
-  --cdb-radius: var(--jbRadius);
-  width:min(100%, 1120px) !important;
+  --cdb-bg:var(--jbCard);
+  --cdb-ink:var(--jbInk);
+  --cdb-accent:var(--jbAccent);
+  --cdb-line:var(--jbLine);
+  --cdb-soft:var(--jbSoft);
+  --cdb-radius:var(--jbRadius);
+  width:min(100%,1120px) !important;
   margin:0 auto !important;
   color:var(--cdb-ink) !important;
-  font:400 13px/1.45 var(--main-font), Arial, sans-serif !important;
+  font:400 13px/1.45 var(--main-font),Arial,sans-serif !important;
+}
+
+.crw2-bio,
+.crw2-card,
+.crw2-body,
+.crw2-text,
+#cdBankNative,
+#cdBankNative .cdb2__layout,
+#cdBankNative .cdb2__side,
+#cdBankNative .cdb2__work{
+  overflow:visible !important;
+  transform:none !important;
+  filter:none !important;
+  perspective:none !important;
 }
 
 #cdBankNative .cdb2__layout{
@@ -29,6 +45,9 @@
   border:1px solid var(--cdb-line) !important;
   border-radius:var(--cdb-radius) !important;
   box-shadow:0 10px 28px rgba(0,0,0,.08) !important;
+}
+
+#cdBankNative .cdb2__work{
   overflow:hidden !important;
 }
 
@@ -44,7 +63,7 @@
 #cdBankNative .cdb2__sidetitle,
 #cdBankNative .cdb2__blocktitle,
 #cdBankNative .cdb2__sectiontitle{
-  font:900 11px/1 var(--main-font), Arial, sans-serif !important;
+  font:900 11px/1 var(--main-font),Arial,sans-serif !important;
   letter-spacing:.16em !important;
   text-transform:uppercase !important;
 }
@@ -56,8 +75,8 @@
   flex-wrap:wrap !important;
 }
 
-#cdBankNative .cdb2__tabs{ margin-top:12px !important; }
-#cdBankNative .cdb2__subtabs{ margin-top:10px !important; }
+#cdBankNative .cdb2__tabs{margin-top:12px !important;}
+#cdBankNative .cdb2__subtabs{margin-top:10px !important;}
 
 #cdBankNative .cdb2__tab,
 #cdBankNative .cdb2__subtab,
@@ -71,7 +90,7 @@
   transition:.18s ease !important;
   text-transform:uppercase !important;
   letter-spacing:.09em !important;
-  font:800 10px/1 var(--main-font), Arial, sans-serif !important;
+  font:800 10px/1 var(--main-font),Arial,sans-serif !important;
 }
 
 #cdBankNative .cdb2__tab,
@@ -121,7 +140,7 @@
   border-radius:999px !important;
   border:1px solid var(--cdb-line) !important;
   background:rgba(255,255,255,.22) !important;
-  font:800 10px/1 var(--main-font), Arial, sans-serif !important;
+  font:800 10px/1 var(--main-font),Arial,sans-serif !important;
   letter-spacing:.08em !important;
   text-transform:uppercase !important;
   color:var(--sec-text) !important;
@@ -152,19 +171,26 @@
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.03) !important;
 }
 
-#cdBankNative .cdb2__rowmain{ min-width:0 !important; cursor:pointer !important; }
+#cdBankNative .cdb2__rowmain{
+  min-width:0 !important;
+  cursor:pointer !important;
+}
+
 #cdBankNative .cdb2__rowtitle{
   font-size:13px !important;
   color:var(--text) !important;
   line-height:1.35 !important;
 }
+
 #cdBankNative .cdb2__rowtitle a{
   color:var(--accent) !important;
   text-decoration:none !important;
 }
-#cdBankNative .cdb2__rowtitle a:hover{ text-decoration:underline !important; }
 
-#cdBankNative .cdb2__baseval,
+#cdBankNative .cdb2__rowtitle a:hover{
+  text-decoration:underline !important;
+}
+
 #cdBankNative .cdb2__rowsum,
 #cdBankNative .cdb2__notebadge{
   display:inline-flex !important;
@@ -178,7 +204,6 @@
   font-weight:800 !important;
 }
 
-#cdBankNative .cdb2__baseval b,
 #cdBankNative .cdb2__rowsum b,
 #cdBankNative .cdb2__notebadge b{
   font-size:13px !important;
@@ -206,15 +231,18 @@
 
 #cdBankNative .cdb2__step{
   cursor:pointer !important;
-  font:900 16px/1 var(--main-font), Arial, sans-serif !important;
+  font:900 16px/1 var(--main-font),Arial,sans-serif !important;
 }
 
 #cdBankNative .cdb2__qtyinput,
 #cdBankNative .cdb2__input{
   width:100% !important;
   padding:0 10px !important;
+  font:700 13px/1 var(--main-font),Arial,sans-serif !important;
+}
+
+#cdBankNative .cdb2__qtyinput{
   text-align:center !important;
-  font:700 13px/1 var(--main-font), Arial, sans-serif !important;
 }
 
 #cdBankNative .cdb2__input{
@@ -234,7 +262,8 @@
 
 #cdBankNative .cdb2__side{
   position:sticky !important;
-  top:10px !important;
+  top:12px !important;
+  align-self:start !important;
 }
 
 #cdBankNative .cdb2__sidebox{
@@ -242,6 +271,7 @@
   display:flex !important;
   flex-direction:column !important;
   gap:12px !important;
+  overflow:visible !important;
 }
 
 #cdBankNative .cdb2__sidehead{
@@ -264,6 +294,7 @@
   color:var(--accent) !important;
   line-height:1 !important;
 }
+
 #cdBankNative .cdb2__sideafter i{
   font-style:normal !important;
   font-weight:900 !important;
@@ -278,7 +309,7 @@
 
 #cdBankNative .cdb2__field span,
 #cdBankNative .cdb2__stat span{
-  font:800 10px/1 var(--main-font), Arial, sans-serif !important;
+  font:800 10px/1 var(--main-font),Arial,sans-serif !important;
   letter-spacing:.12em !important;
   text-transform:uppercase !important;
   color:var(--sec-text) !important;
@@ -325,8 +356,9 @@
   display:flex !important;
   flex-direction:column !important;
   gap:7px !important;
-  max-height:260px !important;
+  max-height:220px !important;
   overflow:auto !important;
+  padding-right:2px !important;
 }
 
 #cdBankNative .cdb2__pickeditem{
@@ -345,6 +377,7 @@
   font-size:12px !important;
   line-height:1.3 !important;
 }
+
 #cdBankNative .cdb2__pickedtext small{
   display:block !important;
   color:var(--sec-text) !important;
@@ -352,13 +385,13 @@
   margin-top:2px !important;
 }
 
-
 #cdBankNative .cdb2__pickedsum{
   font-weight:900 !important;
   white-space:nowrap !important;
 }
-#cdBankNative .cdb2__pickedsum.is-earn{ color:var(--accent) !important; }
-#cdBankNative .cdb2__pickedsum.is-spend{ color:var(--text) !important; }
+
+#cdBankNative .cdb2__pickedsum.is-earn{color:var(--accent) !important;}
+#cdBankNative .cdb2__pickedsum.is-spend{color:var(--text) !important;}
 
 #cdBankNative .cdb2__pickedremove{
   width:26px !important;
@@ -374,8 +407,11 @@
 #cdBankNative .cdb2__manualrow,
 #cdBankNative .cdb2__actions{
   display:grid !important;
-  grid-template-columns:1fr 1fr 1fr !important;
   gap:8px !important;
+}
+
+#cdBankNative .cdb2__manualrow{
+  grid-template-columns:1fr 1fr 1fr !important;
 }
 
 #cdBankNative .cdb2__actions{
@@ -408,11 +444,14 @@
   cursor:pointer !important;
   list-style:none !important;
   padding:11px 12px !important;
-  font:800 10px/1 var(--main-font), Arial, sans-serif !important;
+  font:800 10px/1 var(--main-font),Arial,sans-serif !important;
   letter-spacing:.12em !important;
   text-transform:uppercase !important;
 }
-#cdBankNative .cdb2__help summary::-webkit-details-marker{ display:none !important; }
+
+#cdBankNative .cdb2__help summary::-webkit-details-marker{
+  display:none !important;
+}
 
 #cdBankNative .cdb2__helpbody{
   padding:0 12px 12px !important;
@@ -424,7 +463,10 @@
   color:var(--accent) !important;
   text-decoration:none !important;
 }
-#cdBankNative .cdb2__helpbody a:hover{ text-decoration:underline !important; }
+
+#cdBankNative .cdb2__helpbody a:hover{
+  text-decoration:underline !important;
+}
 
 #cdBankNative .cdb2__empty{
   padding:14px !important;
@@ -435,16 +477,17 @@
   background:rgba(255,255,255,.12) !important;
 }
 
-@media (max-width: 980px){
+@media (max-width:980px){
   #cdBankNative .cdb2__layout{
     grid-template-columns:1fr !important;
   }
+
   #cdBankNative .cdb2__side{
     position:static !important;
   }
 }
 
-@media (max-width: 680px){
+@media (max-width:680px){
   #cdBankNative .cdb2__row,
   #cdBankNative .cdb2__note{
     grid-template-columns:1fr !important;
@@ -465,57 +508,4 @@
   #cdBankNative .cdb2__sideafter{
     justify-content:flex-start !important;
   }
-}
-
-#cdBankNative .cdb2__layout{
-  align-items:start !important;
-  overflow:visible !important;
-}
-
-#cdBankNative .cdb2__side{
-  align-self:start !important;
-  overflow:visible !important;
-}
-
-#cdBankNative .cdb2__sidebox{
-  position:sticky !important;
-  top:12px !important;
-  max-height:calc(100vh - 24px) !important;
-  overflow-y:auto !important;
-}
-
-/* очень важно: не дать внешним обёрткам ломать sticky */
-.crw2-body,
-.crw2-text,
-#cdBankNative,
-#cdBankNative .cdb2__work{
-  overflow:visible !important;
-}
-
-.crw2-bio,
-.crw2-card,
-.crw2-body,
-.crw2-text{
-  overflow:visible !important;
-  transform:none !important;
-  filter:none !important;
-  perspective:none !important;
-}
-
-#cdBankNative .cdb2__layout{
-  align-items:start !important;
-  overflow:visible !important;
-}
-
-#cdBankNative .cdb2__side{
-  position:sticky !important;
-  top:12px !important;
-  align-self:start !important;
-  overflow:visible !important;
-}
-
-#cdBankNative .cdb2__sidebox{
-  position:static !important;
-  max-height:none !important;
-  overflow:visible !important;
 }

@@ -14,17 +14,7 @@
     var manualText = document.getElementById('cdb2ManualText');
     var manualValue = document.getElementById('cdb2ManualValue');
 
-    if (
-      !panel ||
-      !subtabs ||
-      !picked ||
-      !baseInput ||
-      !opsTotal ||
-      !afterTotal ||
-      !pickedCount ||
-      !manualText ||
-      !manualValue
-    ) {
+    if (!panel || !subtabs || !picked || !baseInput || !opsTotal || !afterTotal || !pickedCount || !manualText || !manualValue) {
       return;
     }
 
@@ -143,7 +133,6 @@
 
     function hasSection(side, secId) {
       var arr = groups[side] || [];
-
       if (secId === 'all') return true;
 
       for (var i = 0; i < arr.length; i++) {
@@ -159,13 +148,13 @@
         earn: getFirstSectionId('earn'),
         spend: getFirstSectionId('spend')
       },
-      base: toNumber(baseInput.value),
+      base: 0,
       counts: {},
       manual: []
     };
 
     function ensureValidSub(side) {
-      if (!state.sub[side] || !hasSection(side, state.sub[side])) {
+      if (!hasSection(side, state.sub[side])) {
         state.sub[side] = getFirstSectionId(side);
       }
     }
@@ -180,20 +169,15 @@
 
     function getSections() {
       var arr = groups[state.main] || [];
-
       ensureValidSub(state.main);
 
-      if (state.sub[state.main] === 'all') {
-        return arr;
-      }
+      var activeSub = state.sub[state.main];
+      if (activeSub === 'all') return arr;
 
       var out = [];
       for (var i = 0; i < arr.length; i++) {
-        if (arr[i].id === state.sub[state.main]) {
-          out.push(arr[i]);
-        }
+        if (arr[i].id === activeSub) out.push(arr[i]);
       }
-
       return out;
     }
 
@@ -294,11 +278,7 @@
         html += '<section class="cdb2__section">';
         html += '<div class="cdb2__sectionhead">';
         html += '<div class="cdb2__sectiontitle">' + esc(sec.title) + '</div>';
-
-        if (sec.note) {
-          html += '<div class="cdb2__sectionpill">' + esc(sec.note) + '</div>';
-        }
-
+        html += '<div class="cdb2__sectionpill">' + esc(sec.note || '') + '</div>';
         html += '</div>';
         html += '<div class="cdb2__rows">';
 
@@ -315,6 +295,8 @@
             html += '<div class="cdb2__notebadge"><b>' + esc(item.raw) + '</b><i>' + esc(currency) + '</i></div>';
             html += '</div>';
           } else {
+            var shownValue = qty > 0 ? qty * item.value : item.value;
+
             html += '<div class="cdb2__row' + (qty > 0 ? ' is-used' : '') + '" data-id="' + esc(item.id) + '">';
             html += '<div class="cdb2__rowmain">';
             html += '<div class="cdb2__rowtitle">' + titleHtml(item) + '</div>';
@@ -324,7 +306,7 @@
             html += '<input type="number" min="0" class="cdb2__qtyinput" value="' + qty + '">';
             html += '<button type="button" class="cdb2__step" data-step="1">+</button>';
             html += '</div>';
-            html += '<div class="cdb2__rowsum"><b>' + format(qty * item.value) + '</b><i>' + esc(currency) + '</i></div>';
+            html += '<div class="cdb2__rowsum"><b>' + format(shownValue) + '</b><i>' + esc(currency) + '</i></div>';
             html += '</div>';
           }
         }
@@ -392,8 +374,9 @@
 
         var sum = rowEl.querySelector('.cdb2__rowsum b');
         var input = rowEl.querySelector('.cdb2__qtyinput');
+        var shownValue = val > 0 ? val * itemMap[id].value : itemMap[id].value;
 
-        if (sum) sum.textContent = format(val * itemMap[id].value);
+        if (sum) sum.textContent = format(shownValue);
         if (input && String(input.value) !== String(val)) input.value = val;
       }
 
@@ -544,22 +527,18 @@
       }
 
       var act = e.target.getAttribute('data-act');
-
       if (act === 'addManualPlus') {
         addManual(1);
         return;
       }
-
       if (act === 'addManualMinus') {
         addManual(-1);
         return;
       }
-
       if (act === 'clear') {
         clearOps();
         return;
       }
-
       if (act === 'copy') {
         copyReport();
         return;
@@ -603,9 +582,7 @@
     });
 
     function manualEnterHandler(e) {
-      if (e.key === 'Enter') {
-        addManual(1);
-      }
+      if (e.key === 'Enter') addManual(1);
     }
 
     manualText.addEventListener('keydown', manualEnterHandler);

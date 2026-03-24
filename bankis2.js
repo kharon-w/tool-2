@@ -14,7 +14,17 @@
     var manualText = document.getElementById('cdb2ManualText');
     var manualValue = document.getElementById('cdb2ManualValue');
 
-    if (!panel || !subtabs || !picked || !baseInput || !opsTotal || !afterTotal || !pickedCount || !manualText || !manualValue) {
+    if (
+      !panel ||
+      !subtabs ||
+      !picked ||
+      !baseInput ||
+      !opsTotal ||
+      !afterTotal ||
+      !pickedCount ||
+      !manualText ||
+      !manualValue
+    ) {
       return;
     }
 
@@ -126,27 +136,14 @@
       });
     }
 
-    var state = {
-      main: 'earn',
-      sub: {
-        earn: 'all',
-        spend: 'all'
-      },
-      base: 0,
-      counts: {},
-      manual: []
-    };
-
-    function sideSign(side) {
-      return side === 'earn' ? 1 : -1;
-    }
-
-    function rowCount(id) {
-      return Number(state.counts[id] || 0);
+    function getFirstSectionId(side) {
+      var arr = groups[side] || [];
+      return arr.length ? arr[0].id : 'all';
     }
 
     function hasSection(side, secId) {
       var arr = groups[side] || [];
+
       if (secId === 'all') return true;
 
       for (var i = 0; i < arr.length; i++) {
@@ -156,21 +153,47 @@
       return false;
     }
 
+    var state = {
+      main: 'earn',
+      sub: {
+        earn: getFirstSectionId('earn'),
+        spend: getFirstSectionId('spend')
+      },
+      base: toNumber(baseInput.value),
+      counts: {},
+      manual: []
+    };
+
+    function ensureValidSub(side) {
+      if (!state.sub[side] || !hasSection(side, state.sub[side])) {
+        state.sub[side] = getFirstSectionId(side);
+      }
+    }
+
+    function sideSign(side) {
+      return side === 'earn' ? 1 : -1;
+    }
+
+    function rowCount(id) {
+      return Number(state.counts[id] || 0);
+    }
+
     function getSections() {
       var arr = groups[state.main] || [];
-      var activeSub = state.sub[state.main];
 
-      if (!hasSection(state.main, activeSub)) {
-        state.sub[state.main] = 'all';
-        activeSub = 'all';
+      ensureValidSub(state.main);
+
+      if (state.sub[state.main] === 'all') {
+        return arr;
       }
-
-      if (activeSub === 'all') return arr;
 
       var out = [];
       for (var i = 0; i < arr.length; i++) {
-        if (arr[i].id === activeSub) out.push(arr[i]);
+        if (arr[i].id === state.sub[state.main]) {
+          out.push(arr[i]);
+        }
       }
+
       return out;
     }
 
@@ -231,6 +254,8 @@
     }
 
     function renderTabs() {
+      ensureValidSub(state.main);
+
       var mains = root.querySelectorAll('.cdb2__tab');
 
       for (var i = 0; i < mains.length; i++) {
@@ -269,7 +294,11 @@
         html += '<section class="cdb2__section">';
         html += '<div class="cdb2__sectionhead">';
         html += '<div class="cdb2__sectiontitle">' + esc(sec.title) + '</div>';
-        html += '<div class="cdb2__sectionpill">' + esc(sec.note) + '</div>';
+
+        if (sec.note) {
+          html += '<div class="cdb2__sectionpill">' + esc(sec.note) + '</div>';
+        }
+
         html += '</div>';
         html += '<div class="cdb2__rows">';
 
@@ -494,6 +523,7 @@
       var mainTab = e.target.closest('.cdb2__tab');
       if (mainTab) {
         state.main = mainTab.getAttribute('data-main') || 'earn';
+        ensureValidSub(state.main);
         renderTabs();
         renderPanel();
         return;
@@ -501,7 +531,7 @@
 
       var subTab = e.target.closest('.cdb2__subtab');
       if (subTab) {
-        state.sub[state.main] = subTab.getAttribute('data-sub') || 'all';
+        state.sub[state.main] = subTab.getAttribute('data-sub') || getFirstSectionId(state.main);
         renderTabs();
         renderPanel();
         return;
@@ -514,18 +544,22 @@
       }
 
       var act = e.target.getAttribute('data-act');
+
       if (act === 'addManualPlus') {
         addManual(1);
         return;
       }
+
       if (act === 'addManualMinus') {
         addManual(-1);
         return;
       }
+
       if (act === 'clear') {
         clearOps();
         return;
       }
+
       if (act === 'copy') {
         copyReport();
         return;
@@ -569,7 +603,9 @@
     });
 
     function manualEnterHandler(e) {
-      if (e.key === 'Enter') addManual(1);
+      if (e.key === 'Enter') {
+        addManual(1);
+      }
     }
 
     manualText.addEventListener('keydown', manualEnterHandler);

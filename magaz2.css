@@ -814,21 +814,3 @@
   text-transform:lowercase;
 }
 
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width:980px){
-  .magaz4-wrap{
-    grid-template-columns:1fr;
-  }
-
-  .magaz4-leftcol{
-    width:min(250px, 100%);
-    margin:0 auto;
-  }
-
-  .magaz4__stage{
-    grid-template-columns:1fr;
-  }
-}

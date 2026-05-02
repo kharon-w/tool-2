@@ -2,7 +2,7 @@
   if (!/viewtopic\.php/.test(location.pathname)) return;
 
   var ALLOWED_CHILD_ORIGIN = 'https://forumscripts.ru';
-  var ALLOWED_TOPIC_IDS = ['647']; 
+  var ALLOWED_TOPIC_IDS = ['703']; 
   var cache = {};
 
   function cleanText(s) {
